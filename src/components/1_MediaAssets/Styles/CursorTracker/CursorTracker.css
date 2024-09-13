@@ -1,10 +1,9 @@
-/* CursorTracker.css */
 .cursor-container {
     position: fixed;
     top: 0;
     left: 0;
-    pointer-events: none; /* Allow cursor to pass through the circles */
-    z-index: 1000; /* Ensure the circles are above other content */
+    pointer-events: none;
+    z-index: 1000;
 }
 
 .large-circle {

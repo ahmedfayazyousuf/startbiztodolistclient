@@ -178,13 +178,6 @@ color: white;
 }
 
 @media (max-width: 1000px) {
-    /* .navbar {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-        padding: 10px;
-    } */
 
     .logo {
         height: 30px;
