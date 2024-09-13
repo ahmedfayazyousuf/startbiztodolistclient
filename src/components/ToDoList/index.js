@@ -40,6 +40,11 @@ const ToDoList = () => {
     <div className="maincontainer">
       <div className="container">
 
+        <video autoPlay muted loop className="background-video">
+            <source src='/Videos/BGVideo.mp4' type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+
         <div className="navbar">
           <img src={Logo} alt="Logo" className="logo" />
           <h2 className="heading">Task Manager</h2>
@@ -64,7 +69,7 @@ const ToDoList = () => {
             </li>
           ))}
         </ul>
-        
+
       </div>
     </div>
   );

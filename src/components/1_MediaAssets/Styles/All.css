@@ -43,13 +43,33 @@ color: white;
 
 .container {
     display: flex;
-    width: 90vw;
+    width: 100vw;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-color: #002244;
     color: white;
+    overflow: hidden;
+    position: relative;
 }
+
+
+.container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    object-fit: cover;
+    opacity: 0.4;
+  }
 
 .navbar {
     display: flex;
@@ -78,40 +98,47 @@ color: white;
 
 .inputContainer {
     display: flex;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    max-width: 700px;
+    margin: 25px 0 10px;
 }
 
 .input {
-    width: 300px;
     padding: 10px;
+    width: 100%;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 10px;
     background-color: white;
     color: #002244;
+    box-sizing: border-box;
 }
 
 .addButton {
-    background-color: white;
-    color: #002244;
+    color: #fff;
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: #4f6c89;
+    /* backdrop-filter: blur(10px); */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .addButton:hover {
-    background-color: #e6e6e6;
+    background-color: #35526e;
 }
 
 .taskList {
     list-style-type: none;
     padding: 0;
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 700px;
 }
 
 .taskItem {
@@ -122,17 +149,18 @@ color: white;
     color: #002244;
     padding: 10px 15px;
     margin-bottom: 10px;
+    cursor: pointer;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
 }
 
 .taskItem:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
 .taskText {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .deleteButton {
@@ -150,13 +178,13 @@ color: white;
 }
 
 @media (max-width: 1000px) {
-    .navbar {
+    /* .navbar {
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: auto;
         padding: 10px;
-    }
+    } */
 
     .logo {
         height: 30px;
@@ -165,16 +193,6 @@ color: white;
     .heading {
         font-size: 1.2rem;
         text-align: center;
-    }
-
-    .inputContainer {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .input {
-        width: 100%;
-        margin-bottom: 10px;
     }
 
     .addButton {
