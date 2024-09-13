@@ -1,0 +1,183 @@
+/* SCROLLBAR  */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* TEXT HIGHLIGHT  */
+::selection {
+    background: #82adff;
+    color: #000;
+}
+
+/* FONT  */
+@font-face{
+    font-family: myFont;
+    src:url(Garet-Book.otf);
+}
+*{
+    font-family: myFont;
+}
+@font-face{
+    font-family: myFontBold;
+    src:url(GothamOffice-Bold.otf);
+}
+h1, .fontSpecial{
+    font-family: myFontBold;
+    font-weight: 300;
+}  
+
+
+/* TASK PAGE CSS  */
+body {
+margin: 0;
+background-color: #002244;
+color: white;
+}
+
+.maincontainer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    width: 90vw;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #002244;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 97vw;
+    height: 60px;
+    margin: 10px 0px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    height: 40px;
+    margin-left: 20px;
+    margin-top: -5px;
+}
+
+.heading {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-right: 20px;
+}
+
+.inputContainer {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    background-color: white;
+    color: #002244;
+}
+
+.addButton {
+    background-color: white;
+    color: #002244;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+    background-color: #e6e6e6;
+}
+
+.taskList {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.taskItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: #002244;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.taskItem:hover {
+    transform: scale(1.02);
+}
+
+.taskText {
+    font-size: 1.2rem;
+}
+
+.deleteButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.deleteButton:hover {
+    background-color: #ff1a1a;
+}
+
+@media (max-width: 1000px) {
+    .navbar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 10px;
+    }
+
+    .logo {
+        height: 30px;
+    }
+
+    .heading {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .inputContainer {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .addButton {
+        width: 100%;
+    }
+}

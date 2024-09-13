@@ -1,11 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import ToDoList from './components/ToDoList';
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <ToDoList />
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<ToDoList />} />
+      </Routes>
+    </Router>
   );
 };
 
