@@ -9,7 +9,10 @@ import { getAuth } from 'firebase/auth';
 import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
 
-const socket = io('https://startbiztodolistserver.vercel.app');
+const socket = io('https://startbiztodolistserver.vercel.app', {
+  transports: ['websocket'],
+  withCredentials: true
+});
 
 const AdminPanel = () => {
   const [tasks, setTasks] = useState([]);
