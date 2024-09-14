@@ -155,12 +155,30 @@ color: white;
     transition: transform 0.2s ease;
 }
 
+.taskTitle {
+    margin: 0;
+    padding: 0;
+}
+
 .taskItem:hover {
     transform: scale(1.01);
 }
 
 .taskText {
     font-size: 1rem;
+}
+
+.taskDescription{
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+}
+
+.taskDetails{
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    color: #777;
 }
 
 .deleteButton {
@@ -171,6 +189,7 @@ color: white;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
+    max-width: 100px;
 }
 
 .deleteButton:hover {
@@ -192,3 +211,410 @@ color: white;
         width: 100%;
     }
 }
+
+
+/* POPUP STYLES  */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  input, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+
+  /* POPUP CODE  */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000000;
+}
+
+.popup-close-icon {
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+    font-weight: 900;
+    color: white;
+}
+.popup-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.popup-input {
+    width: 100%;
+    height: 35px;
+    font-size: 13px;
+    padding: 10px 0px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.popup-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 10px;
+    height: 40px;
+}
+
+.popup-error {
+    color: red;
+    height: 13px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+
+
+/* ADMINPANEL CODE  */
+.admin-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .admin-task-list {
+    list-style-type: none;
+    padding: 0;
+    width: 90%;
+    margin: 0;
+    margin-top: -10px;
+    max-width: 700px;
+  }
+  .date-filter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 700px;
+  }
+  .date-picker{
+    margin-top: -10px;
+    width: 85vw;
+    max-width: 680px;
+  }
+  .admin-task-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-task-item h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+    color: #000;
+  }
+  
+  .admin-task-item p {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    color: #7f8c8d;
+  }
+  
+  .admin-task-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .admin-task-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-task-buttons button:hover {
+    background-color: #2980b9;
+    color: #fff;
+  }
+  
+  .admin-accept-btn {
+    background-color: #27ae60;
+    color: #fff;
+  }
+  
+  .admin-reject-btn {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .admin-delete-btn {
+    background-color: #e67e22;
+    color: #fff;
+  }
+  
+  @media (max-width: 1000px) {
+    .admin-task-item {
+      padding: 15px;
+    }
+  
+    .admin-task-item h3 {
+      font-size: 1.25rem;
+    }
+  
+    .admin-task-item p {
+      font-size: 0.9rem;
+    }
+  
+    .admin-task-buttons button {
+      font-size: 0.9rem;
+    }
+  }
+  
+
+  /* HOME CODE  */
+  .home-maincontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.home-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.home-background-video {
+    width: 100%;
+    height: auto;
+}
+
+.home-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #4f6c89;
+    color: white;
+}
+
+.home-logo {
+    height: 50px;
+}
+
+.home-heading {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.home-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    max-width: 700px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.home-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000000;
+}
+
+.home-close-icon {
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+    font-weight: 900;
+    color: white;
+}
+
+.home-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.home-tab-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.home-tab {
+    flex: 1;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4f6c89;;
+}
+
+.home-active-tab {
+    background-color: #4f6c89;
+    color: #fff;
+}
+.home-input {
+    width: 100%;
+    height: 35px;
+    font-size: 13px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box; 
+}
+.home-button-submit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 10px;
+    height: 40px;
+    background-color: #4f6c89;
+}
+
+.home-forgot-password {
+    margin-top: 0px;
+    text-decoration: underline;
+    color: gray;
+    cursor: pointer;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.home-error {
+    color: red;
+    height: 13px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+}
+
+
+  .navbar-buttons {
+    display: flex;
+  }
+  
+  .navbar-button {
+    margin: 0px 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 11px;
+    height: 35px;
+    width: 80px;
+    background-color: #4f6c89;
+    border: 1px solid #4f6c89;
+  }
+  
+  .navbar-button:hover {
+    background-color: #2b4c6d;
+  }
+  
+  .navbar-button:first-child {
+    margin-left: 0;
+  }
+  
