@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
 
@@ -17,17 +17,19 @@ const socket = io('https://startbiztodolistserver.vercel.app', {
 const AdminPanel = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const auth = getAuth(app);
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (!user) {
-      navigate('/');
-      return;
-    }
-
-    fetchTasks();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/');
+      } else {
+        fetchTasks();
+        setLoading(false);
+      }
+    });
 
     socket.on('taskPending', (newTask) => {
       setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -47,8 +49,9 @@ const AdminPanel = () => {
       socket.off('taskPending');
       socket.off('taskUpdated');
       socket.off('taskDeleted');
+      unsubscribe();
     };
-  }, [auth, navigate]);
+  }, [navigate, auth]);
 
   const fetchTasks = () => {
     axios.get('https://startbiztodolistserver.vercel.app/admin/tasks')
@@ -83,6 +86,10 @@ const AdminPanel = () => {
   const filteredTasks = selectedDate
     ? tasks.filter(task => new Date(task.date).toDateString() === new Date(selectedDate).toDateString())
     : tasks;
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a loading spinner/component
+  }
 
   return (
     <div className="maincontainer">

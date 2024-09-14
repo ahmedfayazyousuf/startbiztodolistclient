@@ -24,15 +24,14 @@ const ToDoList = () => {
   const auth = getAuth(app);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
         navigate('/');
       } else {
         setIsAuthenticated(true);
+        fetchTasks();
       }
     });
-
-    fetchTasks();
 
     socket.on('taskAccepted', (task) => {
       setTasks(prevTasks => [...prevTasks, task]);
@@ -107,6 +106,10 @@ const ToDoList = () => {
       console.error('Sign out error:', err);
     }
   };
+
+  if (!isAuthenticated) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="maincontainer">
