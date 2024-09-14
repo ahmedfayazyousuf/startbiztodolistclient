@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
-import { RxCross1 } from "react-icons/rx"; // For popup close icon
+import { RxCross1 } from "react-icons/rx";
 
 const socket = io('https://startbiztodolistserver.vercel.app', {
   transports: ['websocket'],
@@ -198,10 +198,10 @@ const AdminPanel = () => {
   return (
     <div className="maincontainer">
       <div className="container">
-        <video autoPlay muted loop className="background-video">
+        {/* <video autoPlay muted loop className="background-video">
           <source src='/Videos/BGVideo.mp4' type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
 
         <div className="navbar">
           <img src={Logo} alt="Logo" className="logo" />

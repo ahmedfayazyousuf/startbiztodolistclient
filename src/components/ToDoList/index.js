@@ -98,10 +98,10 @@ const ToDoList = () => {
       .catch(error => console.error('Error adding task:', error));
   };
 
-  const deleteTask = (id) => {
-    axios.delete(`https://startbiztodolistserver.vercel.app/tasks/${id}`)
-      .catch(error => console.error('Error deleting task:', error));
-  };
+  // const deleteTask = (id) => {
+  //   axios.delete(`https://startbiztodolistserver.vercel.app/tasks/${id}`)
+  //     .catch(error => console.error('Error deleting task:', error));
+  // };
 
   const handleSignOut = async () => {
     try {
@@ -181,7 +181,7 @@ const ToDoList = () => {
                   <span>Added by: {task.firstName} {task.lastName}</span><br />
                 </p>
               </div>
-              <button className="deleteButton" onClick={() => deleteTask(task.id)}>Delete</button>
+              {/* <button className="deleteButton" onClick={() => deleteTask(task.id)}>Delete</button> */}
             </li>
           ))}
         </ul>
