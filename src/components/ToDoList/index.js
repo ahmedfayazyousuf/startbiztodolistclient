@@ -7,6 +7,11 @@ import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+const localizer = momentLocalizer(moment);
 
 const socket = io('https://startbiztodolistserver.vercel.app', {
   transports: ['websocket'],
@@ -107,6 +112,27 @@ const ToDoList = () => {
     }
   };
 
+  const events = tasks.map(task => ({
+    title: task.title,
+    start: new Date(task.date),
+    end: new Date(task.date),  
+    allDay: true,              
+    taskData: task             
+  }));
+
+  const dayPropGetter = (date) => {
+    const today = new Date();
+    if (date.toDateString() === today.toDateString()) {
+      return {
+        style: {
+          backgroundColor: 'red',
+          color: 'white'
+        }
+      };
+    }
+    return {};
+  };
+
   if (!isAuthenticated) {
     return <div>Loading...</div>;
   }
@@ -131,6 +157,20 @@ const ToDoList = () => {
           <button className="addButton" onClick={handleShowPopUp}>Add Task</button>
         </div>
 
+        <div className='calenderDiv' style={{ height: '500px', marginTop: '20px',display: 'flex', justifyContent: 'center', alignItems: 'center', width: '95vw', maxWidth: '700px', background: '#ddd', borderRadius: '5px'}}>
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ width: '100%', color: '#000' }}
+            dayPropGetter={dayPropGetter}
+            defaultView="month"
+            views={['month']}
+            popup
+          />
+        </div>
+
         <ul className="taskList">
           {tasks.map(task => (
             <li key={task.id} className="taskItem">
@@ -145,6 +185,7 @@ const ToDoList = () => {
             </li>
           ))}
         </ul>
+
       </div>
 
       {showPopUp && (

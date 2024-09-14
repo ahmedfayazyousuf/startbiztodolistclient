@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
+import { RxCross1 } from "react-icons/rx"; // For popup close icon
 
 const socket = io('https://startbiztodolistserver.vercel.app', {
   transports: ['websocket'],
@@ -18,6 +19,13 @@ const AdminPanel = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTaskId, setEditTaskId] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: '', lastName: '', email: '', phone: '', taskName: '', taskDescription: '', taskDate: ''
+  });
+  
   const navigate = useNavigate();
   const auth = getAuth(app);
 
@@ -94,6 +102,91 @@ const AdminPanel = () => {
     }
   };
 
+  const handleShowPopUp = () => {
+    setShowPopUp(true);
+  };
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+    setIsEditing(false);
+    setFormData({
+      firstName: '', lastName: '', email: '', phone: '', taskName: '', taskDescription: '', taskDate: ''
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isEditing) {
+      editTask();
+    } else {
+      addTask();
+    }
+  };
+
+  const addTask = () => {
+    if (!formData.taskName.trim()) return;
+
+    axios.post('https://startbiztodolistserver.vercel.app/tasks', {
+      title: formData.taskName,
+      description: formData.taskDescription,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      date: formData.taskDate
+    })
+      .then(() => {
+        setFormData({
+          firstName: '', lastName: '', email: '', phone: '', taskName: '', taskDescription: '', taskDate: ''
+        });
+        setShowPopUp(false);
+      })
+      .catch(error => console.error('Error adding task:', error));
+  };
+
+  const handleEdit = (task) => {
+    setIsEditing(true);
+    setEditTaskId(task.id);
+    setFormData({
+      firstName: task.firstName,
+      lastName: task.lastName,
+      email: task.email,
+      phone: task.phone,
+      taskName: task.title,
+      taskDescription: task.description,
+      taskDate: task.date
+    });
+    setShowPopUp(true);
+  };
+
+  const editTask = () => {
+    axios.patch(`https://startbiztodolistserver.vercel.app/tasks/${editTaskId}`, {
+      title: formData.taskName,
+      description: formData.taskDescription,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      date: formData.taskDate
+    })
+      .then(() => {
+        setShowPopUp(false);
+        setIsEditing(false);
+        setEditTaskId(null);
+        setFormData({
+          firstName: '', lastName: '', email: '', phone: '', taskName: '', taskDescription: '', taskDate: ''
+        });
+        window.location.reload();
+      })
+      .catch(error => console.error('Error editing task:', error));
+  };
+  
+
   const filteredTasks = selectedDate
     ? tasks.filter(task => new Date(task.date).toDateString() === new Date(selectedDate).toDateString())
     : tasks;
@@ -114,7 +207,7 @@ const AdminPanel = () => {
           <img src={Logo} alt="Logo" className="logo" />
           <div className="navbar-buttons">
             <button className="navbar-button" onClick={() => navigate('/ToDoList')}>List</button>
-            <button className="navbar-button" style={{marginRight: '5px'}} onClick={handleSignOut}>Sign out</button>
+            <button className="navbar-button" style={{ marginRight: '5px' }} onClick={handleSignOut}>Sign out</button>
           </div>
         </div>
 
@@ -128,6 +221,10 @@ const AdminPanel = () => {
             placeholderText="Select a date"
             className="date-picker"
           />
+        </div>
+
+        <div className="inputContainer">
+          <button className="addButton" onClick={handleShowPopUp}>Add Task</button>
         </div>
 
         <ul className="admin-task-list">
@@ -146,11 +243,31 @@ const AdminPanel = () => {
                     <button className="admin-reject-btn" onClick={() => rejectTask(task.id)}>Reject</button>
                   </>
                 )}
+                <button className="admin-edit-btn" onClick={() => handleEdit(task)}>Edit</button>
                 <button className="admin-delete-btn" onClick={() => deleteTask(task.id)}>Delete</button>
               </div>
             </li>
           ))}
         </ul>
+
+        {showPopUp && (
+        <div className="popup-overlay">
+          <RxCross1 className="popup-close-icon" onClick={handleClosePopUp} />
+          <div className="popup-form">
+            <form onSubmit={handleSubmit}>
+              <input type="text" name="firstName" placeholder="First name" value={formData.firstName} onChange={handleChange} className="home-input" />
+              <input type="text" name="lastName" placeholder="Last name" value={formData.lastName} onChange={handleChange} className="home-input" />
+              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="home-input" />
+              <input type="number" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} className="home-input" />
+              <input type="text" name="taskName" placeholder="Task name" value={formData.taskName} onChange={handleChange} className="home-input" />
+              <textarea name="taskDescription" placeholder="Task description" value={formData.taskDescription} onChange={handleChange} className="home-input" />
+              <input type="date" name="taskDate" placeholder="Task date" value={formData.taskDate} onChange={handleChange} className="home-input" />
+              <div id='messageSignup' className="popup-error"></div>
+              <button id='buttonRegister' type="submit" className="popup-button">Add task</button>
+            </form>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
