@@ -10,7 +10,7 @@ import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
 
 const socket = io('https://startbiztodolistserver.vercel.app', {
-  transports: ['websocket', 'polling'],
+  transports: ['websocket'],
   withCredentials: true
 });
 
