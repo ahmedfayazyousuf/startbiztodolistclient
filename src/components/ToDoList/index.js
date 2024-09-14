@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 
-const socket = io('https://startbiztodolistserver.vercel.app');
+const socket = io('https://startbiztodolistserver.vercel.app', {
+  transports: ['websocket'],
+  withCredentials: true
+});
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
