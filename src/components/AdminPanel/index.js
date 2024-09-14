@@ -31,6 +31,14 @@ const AdminPanel = () => {
       }
     });
 
+    socket.on('connect', () => {
+      console.log('WebSocket connected');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('WebSocket disconnected');
+    });
+
     socket.on('taskPending', (newTask) => {
       setTasks((prevTasks) => [...prevTasks, newTask]);
     });
@@ -88,7 +96,7 @@ const AdminPanel = () => {
     : tasks;
 
   if (loading) {
-    return <div>Loading...</div>; // Or a loading spinner/component
+    return <div>Loading...</div>;
   }
 
   return (
