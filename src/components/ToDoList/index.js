@@ -123,7 +123,7 @@ const ToDoList = () => {
           <img src={Logo} alt="Logo" className="logo" />
           <div className="navbar-buttons">
             <button className="navbar-button" onClick={() => navigate('/AdminPanel')}>Admin</button>
-            <button className="navbar-button" onClick={handleSignOut}>Sign out</button>
+            <button className="navbar-button" style={{marginRight: '5px'}} onClick={handleSignOut}>Sign out</button>
           </div>
         </div>
 
