@@ -9,7 +9,7 @@ import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 
 const socket = io('https://startbiztodolistserver.vercel.app', {
-  transports: ['websocket'],
+  transports: ['websocket', 'polling'],
   withCredentials: true
 });
 
