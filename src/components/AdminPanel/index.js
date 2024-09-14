@@ -69,16 +69,19 @@ const AdminPanel = () => {
 
   const acceptTask = (id) => {
     axios.patch(`https://startbiztodolistserver.vercel.app/tasks/${id}/accept`)
+      .then(() => window.location.reload())
       .catch((error) => console.error('Error accepting task:', error));
   };
 
   const rejectTask = (id) => {
     axios.patch(`https://startbiztodolistserver.vercel.app/tasks/${id}/reject`)
+      .then(() => window.location.reload())
       .catch((error) => console.error('Error rejecting task:', error));
   };
 
   const deleteTask = (id) => {
     axios.delete(`https://startbiztodolistserver.vercel.app/tasks/${id}`)
+      .then(() => window.location.reload())
       .catch((error) => console.error('Error deleting task:', error));
   };
 
