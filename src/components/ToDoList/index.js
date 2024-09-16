@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
 import '../1_MediaAssets/Styles/All.css';
 import { RxCross1 } from "react-icons/rx";
@@ -12,11 +11,6 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
-
-const socket = io('https://startbiztodolistserver.vercel.app', {
-  transports: ['websocket'],
-  withCredentials: true
-});
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
@@ -38,17 +32,7 @@ const ToDoList = () => {
       }
     });
 
-    socket.on('taskAccepted', (task) => {
-      setTasks(prevTasks => [...prevTasks, task]);
-    });
-
-    socket.on('taskDeleted', (deletedTaskId) => {
-      setTasks(prevTasks => prevTasks.filter(task => task.id !== deletedTaskId));
-    });
-
     return () => {
-      socket.off('taskAccepted');
-      socket.off('taskDeleted');
       unsubscribe();
     };
   }, [navigate, auth]);
@@ -98,11 +82,6 @@ const ToDoList = () => {
       .catch(error => console.error('Error adding task:', error));
   };
 
-  // const deleteTask = (id) => {
-  //   axios.delete(`https://startbiztodolistserver.vercel.app/tasks/${id}`)
-  //     .catch(error => console.error('Error deleting task:', error));
-  // };
-
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -115,9 +94,9 @@ const ToDoList = () => {
   const events = tasks.map(task => ({
     title: task.title,
     start: new Date(task.date),
-    end: new Date(task.date),  
-    allDay: true,              
-    taskData: task             
+    end: new Date(task.date),
+    allDay: true,
+    taskData: task
   }));
 
   const dayPropGetter = (date) => {

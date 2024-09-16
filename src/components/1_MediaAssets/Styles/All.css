@@ -294,7 +294,7 @@ color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 80vw;
     max-width: 400px;
 }
 
@@ -660,5 +660,24 @@ color: white;
   .rbc-today {
     background-color: #4f6c89 !important;
     color: white !important;
+  }
+  
+
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .tab-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    background: lightgray;
+    cursor: pointer;
+  }
+  
+  .tab-button.active {
+    background: gray;
+    color: white;
   }
   

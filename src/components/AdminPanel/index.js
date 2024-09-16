@@ -1,19 +1,13 @@
-import { signOut } from 'firebase/auth';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from '../../Firebase';
 import Logo from '../1_MediaAssets/BrandImages/Logo.png';
+import { signOut } from 'firebase/auth';
 import { RxCross1 } from "react-icons/rx";
-
-const socket = io('https://startbiztodolistserver.vercel.app', {
-  transports: ['websocket'],
-  withCredentials: true
-});
 
 const AdminPanel = () => {
   const [tasks, setTasks] = useState([]);
@@ -39,32 +33,7 @@ const AdminPanel = () => {
       }
     });
 
-    socket.on('connect', () => {
-      console.log('WebSocket connected');
-    });
-
-    socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-    });
-
-    socket.on('taskPending', (newTask) => {
-      setTasks((prevTasks) => [...prevTasks, newTask]);
-    });
-
-    socket.on('taskUpdated', (updatedTask) => {
-      setTasks((prevTasks) =>
-        prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
-      );
-    });
-
-    socket.on('taskDeleted', (deletedTaskId) => {
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== deletedTaskId));
-    });
-
     return () => {
-      socket.off('taskPending');
-      socket.off('taskUpdated');
-      socket.off('taskDeleted');
       unsubscribe();
     };
   }, [navigate, auth]);
@@ -185,7 +154,6 @@ const AdminPanel = () => {
       })
       .catch(error => console.error('Error editing task:', error));
   };
-  
 
   const filteredTasks = selectedDate
     ? tasks.filter(task => new Date(task.date).toDateString() === new Date(selectedDate).toDateString())
@@ -195,13 +163,10 @@ const AdminPanel = () => {
     return <div>Loading...</div>;
   }
 
+
   return (
     <div className="maincontainer">
       <div className="container">
-        {/* <video autoPlay muted loop className="background-video">
-          <source src='/Videos/BGVideo.mp4' type="video/mp4" />
-          Your browser does not support the video tag.
-        </video> */}
 
         <div className="navbar">
           <img src={Logo} alt="Logo" className="logo" />
